@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tp 1</title>
+    <style>
+        /* Style global */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        #app {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+
+        /* Style pour les éléments spécifiques */
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        div {
+            margin: 10px 0;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        input[type="text"] {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            margin: 5px 0;
+        }
+
+        /* Style pour les éléments conditionnels */
+        div[v-if] {
+            font-weight: bold;
+        }
+
+        div[v-else] {
+            color: #ff0000;
+            font-weight: bold;
+        }
+        /* Style pour le texte affiché conditionnellement */
+        div[v-if] {
+            font-size: 20px;
+        }
+
+        div[v-else] {
+            font-size: 18px;
+            font-style: italic;
+            color: #777;
+        }
+    </style>
+    
+
+</head>
+    <body>
+        <div id="app">
+            <!--Partie 1 : Directives v-if, v-bind, et Interpolation-->
+            <div v-if="isVisible">Suis-je visible ?</div> <br>
+            <button v-on:click=" isVisible =! isVisible ">Afficher le texte</button> <br>
+            <div v-if="isVisible">l'élement est visible !</div> 
+            <div v-else>l'élement est caché !</div> <br>
+
+        <!--Partie 2 : Directive v-show et v-bind-->
+            <img v-show="isVisible" v-bind:src="imageURL" height="200"> <br>
+            <input v-model="input" type="text">
+            <button v-on:click=" imageURL = input ">Changer l'image</button> <br>
+        </div>
+
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        
+            <script>
+                const app = Vue.createApp({
+                    data() {
+                        return {
+                            isVisible:true,
+                            imageURL:"https://t0.gstatic.com/licensed-image?q=tbn:ANd9GcQiY6a7mjKS9Dz_zLCviJ4d2yUKU1IK7j7R-MNze-N5FHDVYxAsEji4gPSoHZ15gavM",
+                            input: ""
+                        }
+                    }
+                })
+                app.mount('#app')
+            </script>
+    </body>
+</html>
