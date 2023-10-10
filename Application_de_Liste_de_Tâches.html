@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+          body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+
+        #app {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        ol {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .tache-completed {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        input[type="text"] {
+            width: 70%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <ol>
+                <li v-for="tache in taches">
+                    <div v-if="showCompletedTasks || !tache.completed">
+                        <input type="checkbox" v-bind:checked="tache.completed" @click="tache.completed = !tache.completed">
+                        <a v-bind:class="{'tache-completed': tache.completed}">{{ tache.name }}</a>
+                    </div>
+                </li>
+            </ol>
+            <input v-model="input" type="text">
+            <button v-on:click="taches.push({ name: input, completed: false }); input = '';" v-bind:disabled="input === ''">Ajouter une tâche</button>
+        </div>
+        <p>{{ "Nombre de tâches terminées : " + completedTaskCount }}</p>
+        <button v-on:click="showCompletedTasks = !showCompletedTasks">{{ showCompletedTasks ? 'Cacher les tâches' : 'Afficher les tâches' }}</button>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    taches: [
+                        { name: "Faire les courses", completed: false },
+                        { name: "Répondre aux e-mails", completed: false },
+                        { name: "Faire du sport", completed: false },
+                    ],
+                    input: "",
+                    showCompletedTasks: true,
+                };
+            },
+            computed: {
+                completedTaskCount() {
+                    return this.taches.filter(tache => tache.completed).length;
+                },
+            },
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html>
